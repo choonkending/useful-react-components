@@ -1,0 +1,10 @@
+html {
+  font-size: 1em;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+body {
+  @import url(https://fonts.googleapis.com/css?family=Montserrat);
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
