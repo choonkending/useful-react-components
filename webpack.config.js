@@ -1,12 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 
-module.exports = {
+var PRODUCTION = process.env.NODE_ENV === 'production';
+
+var config = {
   devtool: 'eval',
   entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './src/index'
   ],
   output: {
@@ -14,9 +13,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
   module: {
     loaders: [
       {
@@ -48,3 +44,16 @@ module.exports = {
   }
 };
 
+if (!PRODUCTION) {
+  config.entry = [].concat(config.entry, [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+  ]);
+
+  config.plugins = (config.plugins || []).concat([
+    new webpack.HotModuleReplacementPlugin()
+  ]);
+}
+
+module.exports = config;

@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 const rootEl = document.getElementById('root');
-ReactDOM.render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
-  rootEl
-);
+let app;
+if (module.hot) {
+  app = <AppContainer><App /></AppContainer>;
+} else {
+  app = <App />;
+}
+
+ReactDOM.render(app, rootEl);
 
 if (module.hot) {
   module.hot.accept('./App', () => {
@@ -24,4 +26,3 @@ if (module.hot) {
     );
   });
 }
-
