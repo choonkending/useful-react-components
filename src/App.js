@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NormalButton, styles } from './buttons/NormalButton';
+import { SimpleButton, styles } from './buttons/SimpleButton';
 
 import './main.css';
 
@@ -9,10 +9,11 @@ export default class App extends Component {
       <div>
         <div>
           <p>Buttons</p>
-          <NormalButton />
+          <SimpleButton>
+            Click me!
+          </SimpleButton>
         </div>
       </div>
     );
   }
 }
-
