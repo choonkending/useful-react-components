@@ -5,7 +5,7 @@ import App from './App';
 const rootEl = document.getElementById('root');
 
 if (module.hot) {
-  const AppContainer = require('react-hot-loader');
+  const { AppContainer } = require('react-hot-loader');
   ReactDOM.render(
     <AppContainer>
       <App />

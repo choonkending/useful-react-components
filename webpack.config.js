@@ -5,19 +5,13 @@ var PRODUCTION = process.env.NODE_ENV === 'production';
 var config = {
   devtool: 'eval',
   entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
   module: {
     loaders: [
       {
@@ -50,11 +44,11 @@ var config = {
 };
 
 if (!PRODUCTION) {
-  config.entry = [].concat(config.entry, [
+  config.entry = [].concat([
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-  ]);
+  ], config.entry);
 
   config.plugins = (config.plugins || []).concat([
     new webpack.HotModuleReplacementPlugin()
