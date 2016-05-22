@@ -1,7 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
+var PRODUCTION = process.env.NODE_ENV === 'production';
 
-module.exports = {
+var config = {
   devtool: 'eval',
   entry: [
     'react-hot-loader/patch',
@@ -48,3 +49,16 @@ module.exports = {
   }
 };
 
+if (!PRODUCTION) {
+  config.entry = [].concat(config.entry, [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+  ]);
+
+  config.plugins = (config.plugins || []).concat([
+    new webpack.HotModuleReplacementPlugin()
+  ]);
+}
+
+module.exports = config;
