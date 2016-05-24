@@ -1,9 +1,36 @@
 $color-aztec: #121F1F;
 $color-white: #fff;
+$color-salem: #0F9D58;
+$color-dodger-blue: #2196F3;
+
+$buttonWidth: 300px;
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+}
 
 .simple-button {
   display: block;
   padding: 0.75rem 1.25rem;
+  box-sizing: border-box;
+  width: $buttonWidth;
 
   background-color: $color-white;
   color: $color-aztec;
@@ -21,6 +48,28 @@ $color-white: #fff;
   &:hover {
     background-color: $color-aztec;
     color: $color-white;
+  }
+
+  &--loading {
+    color: $color-white;
+    background-color: $color-salem;
+    border-color: $color-salem;
+    &:hover {
+      background-color: $color-salem;
+    }
+  }
+
+  &--success {
+    color: $color-white;
+    background-color: $color-dodger-blue;
+    border-color: $color-dodger-blue;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: bounce;
+    transform-origin: center bottom;
+    &:hover {
+      background-color: $color-dodger-blue;
+    }
   }
 }
 

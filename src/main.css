@@ -8,3 +8,21 @@ body {
   @import url(https://fonts.googleapis.com/css?family=Montserrat);
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
+
+.app {
+  display: flex;
+  justify-content: space-around;
+}
+
+.component {
+  min-width: 800px;
+  &__title {
+    text-align: center;
+  }
+
+  &__group {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 
 const SimpleButton = ({ className, modifier, children, ...props }) => {
-  const combinedClassName = `${className} ${modifier}`;
+  const combinedClassName = modifier ? `${className} ${className}--${modifier}`: className;
   return (
-    <button className={combinedClassName} {...props}>
+    <div className={combinedClassName} {...props}>
       {children}
-    </button>
+    </div>
   );
 };
 
