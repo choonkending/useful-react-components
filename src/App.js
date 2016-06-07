@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { SimpleButton, styles } from './buttons/SimpleButton';
+import { interactiveMap } from './graphs';
+import { SimpleMap } from './graphs/SimpleMap';
 import { enhanceButton } from './buttons/ButtonWithStates';
 const ButtonWithStates = enhanceButton(SimpleButton);
+const InteractiveMap = interactiveMap(SimpleMap);
 
 import './main.css';
 
@@ -18,6 +21,12 @@ export default class App extends Component {
             <ButtonWithStates>
               Imma button with lotsa states
             </ButtonWithStates>
+          </div>
+        </div>
+        <div className="component">
+          <p className="component__title">Maps</p>
+          <div className="component__group">
+            <InteractiveMap width="100%" height="100%"/>
           </div>
         </div>
       </div>
