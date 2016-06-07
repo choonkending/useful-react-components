@@ -17,3 +17,8 @@ npm start
 
 :v: Enjoy
 
+## References
+Kudos to the champion(s) who wrote these article(s)
+- [Building SVG Maps with
+  React](https://blog.komand.com/building-svg-maps-with-react)
+
