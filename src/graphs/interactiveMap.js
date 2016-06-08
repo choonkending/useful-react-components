@@ -4,7 +4,7 @@ const interactiveMap = ComposedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      matrix: [1, 0, 0, 1, 0, 0],
+      matrix: { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 },
       dragging: false
     };
     this.pan = this.pan.bind(this);
@@ -13,18 +13,24 @@ const interactiveMap = ComposedComponent => class extends Component {
   }
 
   pan(dx, dy) {
-    const m = this.state.matrix;
-    m[4] += dx;
-    m[5] += dy;
-    this.setState({ matrix: m });
+    const { matrix } = this.state;
+    const { e, f } = matrix;
+    this.setState({
+      matrix: {
+        ...matrix,
+        e: e + dx,
+        f: f + dy
+      }
+    });
   }
 
   zoom(scale) {
-    const { width, height } = this.props;
-    const m = this.state.matrix.map(t => {
-      return t * scale;
-    });
-    this.setState({ matrix: m });
+    const { matrix } = this.state;
+    const transformedMatrix = Object.keys(matrix).reduce((acc, cur) => {
+      acc[cur] = matrix[cur] * scale;
+      return acc;
+    }, {});
+    this.setState({ matrix: transformedMatrix });
   }
 
   onWheel(e) {
@@ -36,13 +42,15 @@ const interactiveMap = ComposedComponent => class extends Component {
   }
 
   render() {
+    const { matrix } = this.state;
+    const matrixValues = Object.keys(matrix).map(k => matrix[k]);
     const { width, height, ...restProps } = this.props;
     return (
       <svg
         width={width}
         height={height}
         onWheel={this.onWheel}>
-        <g transform={`matrix(${this.state.matrix.join(' ')})`}>
+        <g transform={`matrix(${matrixValues.join(' ')})`}>
           <ComposedComponent {...restProps} />
         </g>
       </svg>
