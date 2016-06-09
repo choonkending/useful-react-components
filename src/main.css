@@ -9,13 +9,9 @@ body {
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
-.app {
-  display: flex;
-  justify-content: space-around;
-}
+.app {}
 
 .component {
-  min-width: 800px;
   &__title {
     text-align: center;
   }
