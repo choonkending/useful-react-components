@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const interactiveMap = ComposedComponent => class extends Component {
+const interactiveSVG = ComposedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,5 +111,5 @@ const interactiveMap = ComposedComponent => class extends Component {
   }
 };
 
-export default interactiveMap;
+export default interactiveSVG;
 

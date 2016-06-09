@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { SimpleButton, styles } from './buttons/SimpleButton';
-import { interactiveMap } from './graphs';
+import { interactiveSVG } from './graphs';
 import { SimpleMap } from './graphs/SimpleMap';
 import { enhanceButton } from './buttons/ButtonWithStates';
 const ButtonWithStates = enhanceButton(SimpleButton);
-const InteractiveMap = interactiveMap(SimpleMap);
+const InteractiveMap = interactiveSVG(SimpleMap);
 
 import './main.css';
 

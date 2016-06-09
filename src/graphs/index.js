@@ -1,2 +1,2 @@
-export { default as interactiveMap } from './interactiveMap';
+export { default as interactiveSVG } from './interactiveSVG';
 
