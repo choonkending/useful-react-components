@@ -1,7 +1,8 @@
 import React from 'react';
+import SVGButton from '../components/SVGButton';
 
 const SimpleMap = ({width, height}) => (
-  <circle cx="50" cy="50" r="50" />
+  <SVGButton />
 );
 
 SimpleMap.defaultProps = {
