@@ -9,7 +9,9 @@ body {
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
-.app {}
+html, body, .app {
+  height: 100%;
+}
 
 .component {
   &__title {
