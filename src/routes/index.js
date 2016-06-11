@@ -7,7 +7,7 @@ import Root from './Root';
 
 const App = ()  => (
   <Router history={browserHistory}>
-    <Route path="/" component={Root}>
+  <Route path="/(useful-react-component)" component={Root}>
       <IndexRoute component={Button} />
       <Route path="/button" component={Button} />
       <Route path="/graph" component={Graph} />
