@@ -25,6 +25,11 @@ var config = {
       }
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      BASE_HREF: PRODUCTION ? JSON.stringify("/useful-react-components/") : JSON.stringify("/")
+    })
+  ],
   postcss: function() {
     return [
       require('postcss-simple-vars')(),
