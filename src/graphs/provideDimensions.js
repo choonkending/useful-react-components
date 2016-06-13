@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
-const provideDimensions = ComposedComponent => class extends Component {
+const defaultDimensions = { width: '100%', height: '100%' };
+
+const provideDimensions = (ComposedComponent, dimensions=defaultDimensions) => class extends Component {
   constructor(props) {
     super(props);
     this.getDimensions = this.getDimensions.bind(this);
@@ -18,7 +20,11 @@ const provideDimensions = ComposedComponent => class extends Component {
   }
 
   render() {
-    return <ComposedComponent ref="domElement" {...this.state} {...this.props} />;
+    return (
+      <div ref="domElement" style={dimensions}>
+        <ComposedComponent {...this.state} {...this.props} />
+      </div>
+    );
   }
 
   getDimensions() {
