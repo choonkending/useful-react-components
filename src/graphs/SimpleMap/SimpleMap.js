@@ -1,14 +1,11 @@
 import React from 'react';
 import SVGButton from '../components/SVGButton';
 
-const SimpleMap = ({width, height}) => (
-  <SVGButton />
-);
+const translate = (x, y) => `translate(${x} ${y})`;
 
-SimpleMap.defaultProps = {
-  width: '100%',
-  height: '100%'
-};
+const SimpleMap = ({width, height}) => (
+  <SVGButton transformFn={translate(width/2, height/2)} />
+);
 
 export default SimpleMap;
 
