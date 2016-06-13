@@ -22,7 +22,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
   render() {
     const { matrix } = this.state;
     const matrixValues = Object.keys(matrix).map(k => matrix[k]);
-    const { width, height, ...restProps } = this.props;
+    const { width, height } = this.props;
     return (
       <svg
         width={width}
@@ -35,7 +35,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}>
         <g transform={`matrix(${matrixValues.join(' ')})`}>
-          <ComposedComponent {...restProps} />
+          <ComposedComponent {...this.props} />
         </g>
       </svg>
     );
