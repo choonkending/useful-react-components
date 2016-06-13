@@ -6,8 +6,7 @@ const provideDimensions = ComposedComponent => class extends Component {
     super(props);
     this.getDimensions = this.getDimensions.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
-    // Default to full width and height
-    this.state = { width: "100%", height: "100%" };
+    this.state = { width: null, height: null };
   }
 
   componentDidMount() {
