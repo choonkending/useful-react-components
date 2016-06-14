@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SVGButton = ({onClick, transformFn, ...props}) => (
+const AddButton = ({onClick, transformFn, ...props}) => (
   <g onClick={onClick} transform={transformFn} {...props}>
     <circle cx="25" cy="25" r="25" fill="#43B05C" />
     <line x1="25" x2="25" y1="13" y2="38"
@@ -18,5 +18,5 @@ const SVGButton = ({onClick, transformFn, ...props}) => (
   </g>
 );
 
-export default SVGButton;
+export default AddButton;
 
