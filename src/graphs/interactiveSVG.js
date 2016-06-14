@@ -90,12 +90,18 @@ const interactiveSVG = ComposedComponent => class extends Component {
   }
 
   zoom(scale) {
+    const { width, height } = this.props;
     const { matrix } = this.state;
-    const transformedMatrix = Object.keys(matrix).reduce((acc, cur) => {
-      acc[cur] = matrix[cur] * scale;
-      return acc;
-    }, {});
-    this.setState({ matrix: transformedMatrix });
+    const { a, d, e, f } = matrix;
+    this.setState({
+      matrix: {
+        ...matrix,
+        a: a * scale,
+        d: d * scale,
+        e: e * scale + (1 - scale) * width / 2,
+        f: f * scale + (1 - scale) * height / 2
+      }
+    });
   }
 
   isTouchEvent(e) {
