@@ -105,7 +105,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
   }
 
   isTouchEvent(e) {
-    return e.clientX === 'undefined';
+    return e.clientX == null;
   }
 
   getCoordinates(e) {
