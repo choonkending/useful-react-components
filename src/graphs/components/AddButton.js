@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AddButton = ({onClick, transformFn, bgColor, color, ...props}) => (
-  <g onClick={onClick} transform={transformFn} {...props}>
+const AddButton = ({onClick, bgColor, color, ...props}) => (
+  <g onClick={onClick} {...props}>
     <circle cx="25" cy="25" r="25" fill={bgColor} />
     <line x1="25" x2="25" y1="13" y2="38"
       fill="none" stroke={color} strokeWidth="2"
