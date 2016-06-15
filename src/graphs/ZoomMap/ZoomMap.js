@@ -17,20 +17,25 @@ class ZoomMap extends Component {
 
   handleAddButtonClick() {
     const { nodes } = this.state;
+    const i = nodes.length;
+    const deg = (i % MAX_NODES) * (360 / MAX_NODES);
+    const radians = toRadians(deg);
     this.setState({
-      nodes: [...nodes, nodes.length]
+      nodes: [
+        ...nodes,
+        {
+          x: 25 + 100 * Math.cos(radians),
+          y: 25 + 100 * Math.sin(radians),
+          radius: RADIUS,
+          bgColor: "#000"
+        }
+      ]
     });
   }
 
   render() {
     const { width, height } = this.props;
-    const nodes = this.state.nodes.map((i) => {
-      const deg = (i % MAX_NODES) * (360 / MAX_NODES);
-      const radians = toRadians(deg);
-      const x = 25 + 100 * Math.cos(radians);
-      const y = 25 + 100 * Math.sin(radians);
-      return <Node key={i} radius={RADIUS} x={x}  y={y} bgColor="#001" />
-    });
+    const nodes = this.state.nodes.map((node, i) => <Node key={i} {...node} />);
     return (
       <g transform={translate(width/2, height/2)}>
         { nodes }
