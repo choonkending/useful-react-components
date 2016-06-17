@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import { Simple } from './graphs';
+import { Simple, Zoom } from './graphs';
 import Button from './Button';
 import Root from './Root';
 
@@ -12,6 +12,7 @@ const App = ()  => (
       <Route path="graph">
         <IndexRoute component={Simple} />
         <Route path="simple" component={Simple} />
+        <Route path="zoom" component={Zoom} />
       </Route>
     </Route>
   </Router>
