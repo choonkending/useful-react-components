@@ -13,7 +13,27 @@ class ZoomMap extends Component {
     super(props);
     this.handleAddButtonClick =  this.handleAddButtonClick.bind(this);
     this.handleNodeOpen = this.handleNodeOpen.bind(this);
+    this.getViewBoxValues = this.getViewBoxValues.bind(this);
     this.state = { nodes: [], viewBox: []};
+  }
+
+  render() {
+    const { width, height } = this.props;
+    const viewBox = this.getViewBoxValues();
+    const nodes = this.state.nodes.map((node, i) => <Node key={i} index={i} onOpen={this.handleNodeOpen} {...node} />);
+    return (
+      <svg viewBox={viewBox}>
+        { nodes }
+        <AddButton x={width/2} y={height/2} onClick={this.handleAddButtonClick} />
+      </svg>
+    );
+  }
+
+  getViewBoxValues() {
+    const { width, height } = this.props;
+    const { viewBox } = this.state;
+    if (width == null || height == null) return;
+    return viewBox.length > 0 ? viewBox.join(' ') : `0 0 ${width} ${height}`;
   }
 
   handleAddButtonClick() {
@@ -26,9 +46,9 @@ class ZoomMap extends Component {
       nodes: [
         ...nodes,
         {
-          x: width/2 + 100 * Math.cos(radians),
-          y: height/2 + 100 * Math.sin(radians),
-          radius: RADIUS,
+          cx: width/2 + 100 * Math.cos(radians),
+          cy: height/2 + 100 * Math.sin(radians),
+          r: RADIUS,
           bgColor: "#000"
         }
       ]
@@ -38,19 +58,8 @@ class ZoomMap extends Component {
   handleNodeOpen(index) {
     const { nodes } = this.state;
     const node = nodes[index];
-    this.setState({ viewBox: [node.x - RADIUS, node.y - RADIUS, RADIUS * 2, RADIUS * 2]});
-  }
-
-  render() {
-    const { width, height } = this.props;
-    const viewBox = this.state.viewBox.length > 0 ? this.state.viewBox.join(' ') : `0 0 ${width} ${height}`;
-    const nodes = this.state.nodes.map((node, i) => <Node key={i} index={i} onOpen={this.handleNodeOpen} {...node} />);
-    return (
-      <svg viewBox={viewBox}>
-        { nodes }
-        <AddButton x={width/2} y={height/2} onClick={this.handleAddButtonClick} />
-      </svg>
-    );
+    const { cx, cy, r } = node;
+    this.setState({ viewBox: [ cx - r, cy - r, r * 2, r * 2]});
   }
 }
 
