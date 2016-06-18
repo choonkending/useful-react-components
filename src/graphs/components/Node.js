@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import RemoveButton from './RemoveButton';
 
 export default class Node extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Node extends Component {
     return (
       <g>
         <circle onClick={this.onOpen} r={r} cx={cx} cy={cy} fill={bgColor} />
-        { isActive && <circle onClick={this.onClose} r={r} cx={cx + 100 } cy={cy} fill="#42B05C" /> }
+        { isActive && <RemoveButton onClick={this.onClose} r="10" x={cx + 50 } y={cy} fill="#d23f31" /> }
       </g>
     );
   }
