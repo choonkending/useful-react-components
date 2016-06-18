@@ -11,20 +11,33 @@ class ZoomMap extends Component {
     super(props);
     this.handleAddButtonClick =  this.handleAddButtonClick.bind(this);
     this.handleNodeOpen = this.handleNodeOpen.bind(this);
+    this.handleNodeClose = this.handleNodeClose.bind(this);
     this.getViewBoxValues = this.getViewBoxValues.bind(this);
-    this.state = { nodes: [], viewBox: []};
+    this.renderNodes = this.renderNodes.bind(this);
+    this.state = { nodes: [], viewBox: [], currentActiveIndex: -1 };
   }
 
   render() {
     const { width, height } = this.props;
     const viewBox = this.getViewBoxValues();
-    const nodes = this.state.nodes.map((node, i) => <Node key={i} index={i} onOpen={this.handleNodeOpen} {...node} />);
     return (
       <svg viewBox={viewBox}>
-        { nodes }
+        { this.renderNodes() }
         <AddButton x={width/2} y={height/2} onClick={this.handleAddButtonClick} />
       </svg>
     );
+  }
+
+  renderNodes() {
+    const { nodes, currentActiveIndex } = this.state;
+    return nodes.map((node, i) => (
+      <Node key={i}
+            index={i}
+            isActive={currentActiveIndex === i}
+            onOpen={this.handleNodeOpen}
+            onClose={this.handleNodeClose}
+            {...node} />
+    ));
   }
 
   getViewBoxValues() {
@@ -57,7 +70,17 @@ class ZoomMap extends Component {
     const { nodes } = this.state;
     const node = nodes[index];
     const { cx, cy, r } = node;
-    this.setState({ viewBox: [ cx - r, cy - r, r * 2, r * 2]});
+    this.setState({
+      viewBox: [ cx - r, cy - r, r * 2 + 100, r * 2],
+      currentActiveIndex: index
+    });
+  }
+
+  handleNodeClose() {
+    this.setState({
+      viewBox: [],
+      currentActiveIndex: -1
+    });
   }
 }
 
