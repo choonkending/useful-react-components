@@ -14,6 +14,9 @@ const Root = ({children}) => (
           <li>
             <Link to={`${BASE_HREF}graph/zoom`}>Zoom</Link>
           </li>
+          <li>
+            <Link to={`${BASE_HREF}graph/arrow`}>Arrow</Link>
+          </li>
         </ul>
        </li>
     </ul>
