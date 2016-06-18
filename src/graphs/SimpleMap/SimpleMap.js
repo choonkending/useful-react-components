@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import AddButton from '../components/AddButton';
 import Node from '../components/Node';
+import { translate, rotate, toRadians } from '../utils/transformFn';
 
-const translate = (x, y) => `translate(${x} ${y})`;
-const rotate = (deg, x, y) => `rotate(${deg} ${x} ${y})`;
-const toRadians = x => x * Math.PI / 180;
 const MAX_NODES = 8;
 const RADIUS = 25;
 
