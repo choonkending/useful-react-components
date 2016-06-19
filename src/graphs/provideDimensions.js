@@ -33,8 +33,8 @@ const provideDimensions = (ComposedComponent, dimensions=defaultDimensions) => c
   }
 
   updateDimensions() {
-    const { width, height } = this.getDimensions();
-    this.setState({ width, height });
+    const { width, height, top } = this.getDimensions();
+    this.setState({ width, height, top });
   }
 };
 

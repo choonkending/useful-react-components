@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddButton from '../components/AddButton';
 import Node from '../components/Node';
+import Edge from '../components/Edge';
 import { translate, rotate, toRadians } from '../utils/transformFn';
 
 const MAX_NODES = 8;
@@ -14,18 +15,41 @@ class ArrowMap extends Component {
     this.handleNodeClose = this.handleNodeClose.bind(this);
     this.getViewBoxValues = this.getViewBoxValues.bind(this);
     this.renderNodes = this.renderNodes.bind(this);
-    this.state = { nodes: [], viewBox: [], currentActiveIndex: -1 };
+    this.renderEdges = this.renderEdges.bind(this);
+    this.state = { nodes: [], edges: [], viewBox: [], currentActiveIndex: -1 };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { startX, startY, endX, endY, drawing, top } = nextProps;
+    const { edges } = this.state;
+    const currentEdges = drawing ? edges.slice(0, edges.length - 1): edges;
+    this.setState({
+      edges: [
+        ...currentEdges,
+        { x1: startX, x2: endX, y1: startY - top, y2: endY - top }
+      ]
+    });
   }
 
   render() {
     const { width, height } = this.props;
     const viewBox = this.getViewBoxValues();
     return (
-      <svg viewBox={viewBox}>
-        { this.renderNodes() }
-        <AddButton x={width/2} y={height/2} onClick={this.handleAddButtonClick} />
+      <svg viewBox={viewBox}
+       onMouseDown={this.onDragStart}
+        onTouchStart={this.onDragStart}
+        onMouseMove={this.onDragMove}
+        onTouchMove={this.onDragMove}
+        onMouseUp={this.onDragEnd}
+        onTouchEnd={this.onDragEnd}>
+        { this.renderEdges() }
+        <AddButton x={width/2} y={height/2} />
       </svg>
     );
+  }
+
+  renderEdges() {
+    return this.state.edges.map((props, i) => <Edge key={i} {...props} />);
   }
 
   renderNodes() {

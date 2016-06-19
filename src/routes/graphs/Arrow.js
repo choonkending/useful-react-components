@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { interactiveSVG, provideDimensions } from '../../graphs';
+import { provideDragCoordinates, provideDimensions } from '../../graphs';
 import { ArrowMap } from '../../graphs/ArrowMap';
-const InteractiveMap = provideDimensions(interactiveSVG(ArrowMap));
+const InteractiveMap = provideDimensions(provideDragCoordinates(ArrowMap));
 
 import '../../main.css';
 
