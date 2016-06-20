@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const Root = ({children}) => (
   <div className="main">
-    <ul>
+    <ul className="navigation">
       <li><Link to={`${BASE_HREF}button`}>Button</Link></li>
       <li><Link to={`${BASE_HREF}graph`}>Graph</Link></li>
       <li>
@@ -18,7 +18,7 @@ const Root = ({children}) => (
             <Link to={`${BASE_HREF}graph/arrow`}>Arrow</Link>
           </li>
           <li>
-            <Link to={`${BASE_HREF}graph/final`}>Final</Link>
+            <Link to={`${BASE_HREF}final`}>Final</Link>
           </li>
         </ul>
        </li>

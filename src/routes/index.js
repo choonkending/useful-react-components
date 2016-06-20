@@ -14,8 +14,8 @@ const App = ()  => (
         <Route path="simple" component={Simple} />
         <Route path="zoom" component={Zoom} />
         <Route path="arrow" component={Arrow} />
-        <Route path="final" component={Final} />
       </Route>
+      <Route path="final" component={Final} />
     </Route>
   </Router>
 );
