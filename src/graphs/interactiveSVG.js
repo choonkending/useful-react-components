@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getCoordinates } from './utils/eventUtils';
 
 const interactiveSVG = ComposedComponent => class extends Component {
   constructor(props) {
@@ -15,8 +16,6 @@ const interactiveSVG = ComposedComponent => class extends Component {
     this.onDragMove = this.onDragMove.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.onWheel = this.onWheel.bind(this);
-    this.getCoordinates = this.getCoordinates.bind(this);
-    this.isTouchEvent = this.isTouchEvent.bind(this);
   }
 
   render() {
@@ -50,7 +49,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
   }
 
   onDragStart(e) {
-    const { x, y } = this.getCoordinates(e);
+    const { x, y } = getCoordinates(e);
     this.setState({
       dragging: true,
       x,
@@ -60,7 +59,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
 
   onDragMove(e) {
     if (!this.state.dragging) return;
-    const { x, y } = this.getCoordinates(e);
+    const { x, y } = getCoordinates(e);
 
     // Take the delta where we are minus where we came from
     const dx = x - this.state.x;
@@ -104,17 +103,6 @@ const interactiveSVG = ComposedComponent => class extends Component {
     });
   }
 
-  isTouchEvent(e) {
-    return e.clientX == null;
-  }
-
-  getCoordinates(e) {
-    const { clientX, clientY } = this.isTouchEvent(e) ? e.changedTouches[0] : e;
-    return {
-      x: clientX,
-      y: clientY
-    };
-  }
 };
 
 export default interactiveSVG;
