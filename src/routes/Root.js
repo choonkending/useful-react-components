@@ -17,10 +17,10 @@ const Root = ({children}) => (
           <li>
             <Link to={`${BASE_HREF}graph/arrow`}>Arrow</Link>
           </li>
-          <li>
-            <Link to={`${BASE_HREF}final`}>Final</Link>
-          </li>
         </ul>
+       </li>
+       <li>
+        <Link to={`${BASE_HREF}final`}>Final</Link>
        </li>
     </ul>
     {children}

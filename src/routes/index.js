@@ -10,7 +10,7 @@ const App = ()  => (
     <Route path={`${BASE_HREF}`} component={Root}>
       <Route path="button" component={Button} />
       <Route path="graph">
-        <IndexRoute component={Final} />
+        <IndexRoute component={Simple} />
         <Route path="simple" component={Simple} />
         <Route path="zoom" component={Zoom} />
         <Route path="arrow" component={Arrow} />
