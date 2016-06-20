@@ -14,7 +14,7 @@ const AddButton = ({x, y, r, fill, color, onClick, ...props}) => (
 
 AddButton.defaultProps = {
   x: 25,
-  y: 25,
+  y: 0,
   r: 25,
   fill: "#42B05C",
   color: "#fff"

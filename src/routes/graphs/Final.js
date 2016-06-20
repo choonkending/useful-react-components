@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { provideDragCoordinates, provideDimensions } from '../../graphs';
+import { provideDimensions } from '../../graphs';
 import { FinalMap, styles } from '../../graphs/FinalMap';
-const InteractiveMap = provideDimensions(provideDragCoordinates(FinalMap));
+const InteractiveMap = provideDimensions(FinalMap);
 
 import '../../main.css';
 
