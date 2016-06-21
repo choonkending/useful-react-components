@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AddButton from '../components/AddButton';
-import SNode from '../components/SNode';
+import { Graph, ViewModel as GraphViewModel } from '../components/graph';
 import { translate } from '../utils/transformFn';
+
 
 class FinalMap extends Component {
   constructor(props) {
@@ -9,8 +10,8 @@ class FinalMap extends Component {
     this.getViewBoxValues = this.getViewBoxValues.bind(this);
     this.getPosition = this.getPosition.bind(this);
     this.onAddButtonClick = this.onAddButtonClick.bind(this);
-    this.renderNodes = this.renderNodes.bind(this);
-    this.state = { viewBox: [], graphs: [], nodes: [] };
+    this.renderGraphs = this.renderGraphs.bind(this);
+    this.state = { viewBox: [], graphs: [] };
   }
 
   render() {
@@ -18,7 +19,7 @@ class FinalMap extends Component {
     const viewBox = this.getViewBoxValues();
     return (
       <svg viewBox={viewBox}>
-        { this.renderNodes() }
+        { this.renderGraphs() }
         <g transform={translate(width/2, height - top - 50)}>
           <AddButton onClick={this.onAddButtonClick} className="map__button" />
           <text x="75" y="0">Click + to begin!</text>
@@ -43,22 +44,18 @@ class FinalMap extends Component {
   }
 
   onAddButtonClick() {
-    const { nodes, graphs } = this.state;
+    const { graphs } = this.state;
     const position = this.getPosition();
     this.setState({
       graphs: [
         ...graphs,
-        nodes.length
+        new GraphViewModel({ position })
       ],
-      nodes: [
-        ...nodes,
-        {...position}
-      ]
     });
   }
 
-  renderNodes() {
-    return this.state.nodes.map((node, i) => <SNode key={i} {...node} />);
+  renderGraphs() {
+    return this.state.graphs.map((g, i) => <Graph key={i} {...g.getGraph()} />);
   }
 }
 
