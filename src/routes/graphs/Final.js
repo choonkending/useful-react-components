@@ -5,11 +5,7 @@ const InteractiveMap = provideDimensions(FinalMap);
 
 import '../../main.css';
 
-export default class Final extends Component {
-  render() {
-    return (
-      <InteractiveMap />
-    );
-  }
-}
+const Final = props => <InteractiveMap />;
+
+export default Final;
 

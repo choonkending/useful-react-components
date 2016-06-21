@@ -5,11 +5,7 @@ const InteractiveMap = provideDimensions(interactiveSVG(ZoomMap));
 
 import '../../main.css';
 
-export default class Zoom extends Component {
-  render() {
-    return (
-      <InteractiveMap />
-    );
-  }
-}
+const Zoom = props => <InteractiveMap />;
+
+export default Zoom;
 

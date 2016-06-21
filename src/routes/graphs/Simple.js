@@ -5,11 +5,7 @@ const InteractiveMap = provideDimensions(interactiveSVG(SimpleMap));
 
 import '../../main.css';
 
-export default class Simple extends Component {
-  render() {
-    return (
-      <InteractiveMap />
-    );
-  }
-}
+const Simple = props => <InteractiveMap />;
+
+export default Simple;
 
