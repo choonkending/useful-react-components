@@ -5,11 +5,7 @@ const InteractiveMap = provideDimensions(provideDragCoordinates(ArrowMap));
 
 import '../../main.css';
 
-export default class Arrow extends Component {
-  render() {
-    return (
-      <InteractiveMap />
-    );
-  }
-}
+const Arrow = props => <InteractiveMap />;
+
+export default Arrow;
 

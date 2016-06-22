@@ -1,0 +1,14 @@
+svg {
+  user-select: none;
+}
+
+.map__button {
+  transition: transform .15s ease-out;
+  transform-origin: 50% 50%;
+  transform: scale(1);
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
