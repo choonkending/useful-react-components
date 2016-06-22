@@ -7,7 +7,7 @@ class Move extends Component {
   }
 
   render() {
-    const { x: cx, y: cy, ...restProps } = this.props;
+    const { x: cx, y: cy, transform, ...restProps } = this.props;
     return <circle cx={cx} cy={cy} {...restProps} />;
   }
 }

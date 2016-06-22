@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import interactive from '../../interactive';
 
 class Node extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Node extends Component {
 }
 
 Node.defaultProps = {
-  x: 50,
+  x: 150,
   y: 50,
   r: 25,
   fill: "#fff",
@@ -20,5 +21,5 @@ Node.defaultProps = {
   strokeWidth: "8"
 };
 
-export default Node;
+export default interactive(Node);
 

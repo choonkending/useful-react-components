@@ -1,11 +1,12 @@
 const defaultRootNode = { id: 0 };
 
 class ViewModel {
-  constructor({ id = -1, nodes = [defaultRootNode], edges = [], position = {} }) {
+  constructor({ id = -1, nodes = [defaultRootNode], edges = [], position = {}, size = {} }) {
     this.id = id;
     this.nodes = nodes;
     this.edges = edges;
     this.position = position;
+    this.size = size;
   }
 
   addNode(node) {
@@ -27,7 +28,8 @@ class ViewModel {
       id: this.id,
       nodes: this.nodes,
       edges: this.edges,
-      position: this.position
+      position: this.position,
+      size: this.size
     };
   }
 }

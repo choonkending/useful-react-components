@@ -53,11 +53,12 @@ class FinalMap extends Component {
 
   onAddButtonClick() {
     const { graphs } = this.state;
+    const { width, height } = this.props;
     const position = this.getPosition();
     this.setState({
       graphs: [
         ...graphs,
-        new GraphViewModel({ position })
+        new GraphViewModel({ position, size: { width, height}})
       ],
     });
   }
