@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import AddButton from '../components/AddButton';
 import { Graph, ViewModel as GraphViewModel } from '../components/graph';
 import { translate } from '../utils/transformFn';
-
+import { interactive } from '../interactive';
 
 class FinalMap extends Component {
   constructor(props) {
     super(props);
     this.getViewBoxValues = this.getViewBoxValues.bind(this);
+    this.getTransformValues = this.getTransformValues.bind(this);
     this.getPosition = this.getPosition.bind(this);
     this.onAddButtonClick = this.onAddButtonClick.bind(this);
     this.renderGraphs = this.renderGraphs.bind(this);
@@ -15,17 +16,24 @@ class FinalMap extends Component {
   }
 
   render() {
-    const { width, height, top } = this.props;
+    const { width, height } = this.props;
     const viewBox = this.getViewBoxValues();
+    const transform = this.getTransformValues();
     return (
-      <svg viewBox={viewBox}>
+      <svg width={width} height={height} viewBox={viewBox}>
         { this.renderGraphs() }
-        <g transform={translate(width/2, height - top - 50)}>
+        <g transform={transform}>
           <AddButton onClick={this.onAddButtonClick} className="map__button" />
           <text x="75" y="0">Click + to begin!</text>
         </g>
       </svg>
     );
+  }
+
+  getTransformValues() {
+    const { width, height, top } = this.props;
+    if (width == null || height == null || top == null) return;
+    return translate(width/2, height - top - 50);
   }
 
   getViewBoxValues() {
@@ -55,6 +63,7 @@ class FinalMap extends Component {
   }
 
   renderGraphs() {
+    const { width, height } = this.props;
     return this.state.graphs.map((g, i) => <Graph key={i} {...g.getGraph()} />);
   }
 }

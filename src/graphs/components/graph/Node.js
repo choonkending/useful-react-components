@@ -12,11 +12,12 @@ class Node extends Component {
 }
 
 Node.defaultProps = {
-  x: 25,
-  y: 25,
+  x: 50,
+  y: 50,
   r: 25,
   fill: "#fff",
-  stroke: "#000"
+  stroke: "#000",
+  strokeWidth: "8"
 };
 
 export default Node;
