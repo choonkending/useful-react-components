@@ -29,9 +29,9 @@ const interactive = ComposedComponent => {
         onMouseMove={this.onDragMove}
         onTouchMove={this.onDragMove}
         onMouseUp={this.onDragEnd}
+        onMouseLeave={this.onDragEnd}
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}
-        translate={`translate(${matrix.e} ${matrix.f})`}
         transform={`matrix(${matrixValues.join(' ')})`}
         {...this.props} />
       );
