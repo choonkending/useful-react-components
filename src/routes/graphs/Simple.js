@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { interactiveSVG, provideDimensions } from '../../graphs';
+import { interactive, provideDimensions } from '../../graphs';
 import { SimpleMap } from '../../graphs/SimpleMap';
-const InteractiveMap = provideDimensions(interactiveSVG(SimpleMap));
 
 import '../../main.css';
 
-const Simple = props => <InteractiveMap />;
+const Simple = props => {
+  const { width, height, transform, ...restProps } = props;
+  return (
+    <svg width={width} height={height} {...restProps}>
+      <g transform={transform}>
+        <SimpleMap {...props} />
+      </g>
+    </svg>
+  );
+};
 
-export default Simple;
+export default provideDimensions(interactive(Simple));
 

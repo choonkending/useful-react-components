@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { interactiveSVG, provideDimensions } from '../../graphs';
+import { interactive, provideDimensions } from '../../graphs';
 import { ZoomMap } from '../../graphs/ZoomMap';
-const InteractiveMap = provideDimensions(interactiveSVG(ZoomMap));
 
 import '../../main.css';
 
-const Zoom = props => <InteractiveMap />;
+const Zoom = props => {
+  const { width, height, transform, ...restProps } = props;
+  return (
+    <svg width={width} height={height} {...restProps}>
+      <g transform={transform}>
+        <ZoomMap {...props} />
+      </g>
+    </svg>
+  );
+};
 
-export default Zoom;
+export default provideDimensions(interactive(Zoom));
 

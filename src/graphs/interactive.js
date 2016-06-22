@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getCoordinates } from './utils/eventUtils';
 
-const interactiveSVG = ComposedComponent => class extends Component {
+const interactive = ComposedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,22 +21,17 @@ const interactiveSVG = ComposedComponent => class extends Component {
   render() {
     const { matrix } = this.state;
     const matrixValues = Object.keys(matrix).map(k => matrix[k]);
-    const { width, height } = this.props;
     return (
-      <svg
-        width={width}
-        height={height}
-        onMouseDown={this.onDragStart}
-        onTouchStart={this.onDragStart}
-        onMouseMove={this.onDragMove}
-        onTouchMove={this.onDragMove}
-        onMouseUp={this.onDragEnd}
-        onTouchEnd={this.onDragEnd}
-        onWheel={this.onWheel}>
-        <g transform={`matrix(${matrixValues.join(' ')})`}>
-          <ComposedComponent {...this.props} />
-        </g>
-      </svg>
+        <ComposedComponent
+          onMouseDown={this.onDragStart}
+          onTouchStart={this.onDragStart}
+          onMouseMove={this.onDragMove}
+          onTouchMove={this.onDragMove}
+          onMouseUp={this.onDragEnd}
+          onTouchEnd={this.onDragEnd}
+          onWheel={this.onWheel}
+          transform={`matrix(${matrixValues.join(' ')})`}
+          {...this.props} />
     );
   }
 
@@ -55,6 +50,7 @@ const interactiveSVG = ComposedComponent => class extends Component {
       x,
       y
     });
+    e.stopPropagation();
   }
 
   onDragMove(e) {
@@ -105,5 +101,5 @@ const interactiveSVG = ComposedComponent => class extends Component {
 
 };
 
-export default interactiveSVG;
+export default interactive;
 
