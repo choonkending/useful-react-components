@@ -7,8 +7,8 @@ class Move extends Component {
   }
 
   render() {
-    const { x: cx, y: cy, transform, translate, ...restProps } = this.props;
-    return <circle cx={cx} cy={cy} {...restProps} transform={translate} />;
+    const { x: cx, y: cy, ...restProps } = this.props;
+    return <circle cx={cx} cy={cy} {...restProps} />;
   }
 }
 
@@ -18,7 +18,10 @@ Move.defaultProps = {
   r: 25,
   fill: "#1e90ff",
   stroke: "#000",
-  strokeWidth: "8"
+  strokeWidth: "8",
+  style: {
+    cursor: "move"
+  }
 };
 
 export default interactive(Move);
