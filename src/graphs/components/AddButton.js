@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddButton = ({x, y, r, fill, color, onClick, ...props}) => (
+const AddButton = ({x, y, r, fill, color, onClick, transform, ...props}) => (
   <g onClick={onClick} {...props}>
     <circle cx={x} cy={y} r={r} fill={fill} />
     <line x1={x} x2={x} y1={y-r/2} y2={y+r/2}
