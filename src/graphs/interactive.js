@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { getCoordinates, addEvent, removeEvent } from './utils/eventUtils';
 
+const getValuesFromObj = obj => Object.keys(obj).map(k => obj[k]);
+const createTransform = matrix => `matrix(${matrix.join(' ')})`;
+
 const interactive = ComposedComponent => {
   class Interactive extends Component {
     constructor(props) {
@@ -22,11 +25,13 @@ const interactive = ComposedComponent => {
     componentWillUnmount() {
       removeEvent(document, 'mousemove', this.onDragMove);
       removeEvent(document, 'mouseup', this.onDragEnd);
+      removeEvent(document, 'touchmove', this.onDragMove);
+      removeEvent(document, 'touchend', this.onDragEnd);
     }
 
     render() {
       const { matrix } = this.state;
-      const matrixValues = Object.keys(matrix).map(k => matrix[k]);
+      const transform = createTransform(getValuesFromObj(matrix));
       return (
         <ComposedComponent
         onMouseDown={this.onDragStart}
@@ -34,7 +39,7 @@ const interactive = ComposedComponent => {
         onMouseUp={this.onDragEnd}
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}
-        transform={`matrix(${matrixValues.join(' ')})`}
+        transform={transform}
         {...this.props} />
       );
     }
@@ -56,6 +61,8 @@ const interactive = ComposedComponent => {
       });
       addEvent(document, 'mousemove', this.onDragMove);
       addEvent(document, 'mouseup', this.onDragEnd);
+      addEvent(document, 'touchmove', this.onDragMove);
+      addEvent(document, 'touchend', this.onDragEnd);
     }
 
     onDragMove(e) {
@@ -77,11 +84,14 @@ const interactive = ComposedComponent => {
       this.setState({ dragging: false });
       removeEvent(document, 'mousemove', this.onDragMove);
       removeEvent(document, 'mouseup', this.onDragEnd);
+      removeEvent(document, 'touchmove', this.onDragMove);
+      removeEvent(document, 'touchend', this.onDragEnd);
     }
 
     pan(dx, dy) {
       const { matrix } = this.state;
       const { e, f } = matrix;
+      const { onTransform } = this.props;
       this.setState({
         matrix: {
           ...matrix,
@@ -89,10 +99,12 @@ const interactive = ComposedComponent => {
           f: f + dy
         }
       });
+      const transform = createTransform(getValuesFromObj(this.state.matrix));
+      onTransform && onTransform(transform);
     }
 
     zoom(scale) {
-      const { width, height } = this.props;
+      const { width, height, onTransform } = this.props;
       const { matrix } = this.state;
       const { a, d, e, f } = matrix;
       this.setState({
@@ -104,13 +116,16 @@ const interactive = ComposedComponent => {
           f: f * scale + (1 - scale) * height / 2
         }
       });
+      const transform = createTransform(getValuesFromObj(this.state.matrix));
+      onTransform && onTransform(transform);
     }
 
   }
 
   Interactive.propTypes = {
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    height: PropTypes.number.isRequired,
+    onTransform: PropTypes.func
   };
 
   return Interactive;
