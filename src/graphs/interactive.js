@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getCoordinates } from './utils/eventUtils';
+import { getCoordinates, addEvent, removeEvent } from './utils/eventUtils';
 
 const interactive = ComposedComponent => {
   class Interactive extends Component {
@@ -19,6 +19,11 @@ const interactive = ComposedComponent => {
       this.onWheel = this.onWheel.bind(this);
     }
 
+    componentWillUnmount() {
+      removeEvent(document, 'mousemove', this.onDragMove);
+      removeEvent(document, 'mouseup', this.onDragEnd);
+    }
+
     render() {
       const { matrix } = this.state;
       const matrixValues = Object.keys(matrix).map(k => matrix[k]);
@@ -26,10 +31,7 @@ const interactive = ComposedComponent => {
         <ComposedComponent
         onMouseDown={this.onDragStart}
         onTouchStart={this.onDragStart}
-        onMouseMove={this.onDragMove}
-        onTouchMove={this.onDragMove}
         onMouseUp={this.onDragEnd}
-        onMouseLeave={this.onDragEnd}
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}
         transform={`matrix(${matrixValues.join(' ')})`}
@@ -52,7 +54,8 @@ const interactive = ComposedComponent => {
         x,
         y
       });
-      e.stopPropagation();
+      addEvent(document, 'mousemove', this.onDragMove);
+      addEvent(document, 'mouseup', this.onDragEnd);
     }
 
     onDragMove(e) {
@@ -72,6 +75,8 @@ const interactive = ComposedComponent => {
 
     onDragEnd() {
       this.setState({ dragging: false });
+      removeEvent(document, 'mousemove', this.onDragMove);
+      removeEvent(document, 'mouseup', this.onDragEnd);
     }
 
     pan(dx, dy) {
