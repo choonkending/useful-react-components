@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MoveNode from './MoveNode';
 import Node from './Node';
 import { translate } from '../../utils/transformFn';
+import { CENTER } from './contants';
+import { centerPosition } from '../../utils/position';
 
 export default class Graph extends Component {
   constructor(props) {
@@ -14,10 +16,11 @@ export default class Graph extends Component {
   render() {
     const { transform } = this.state;
     const { size } = this.props;
+    const position = centerPosition(size);
     return (
       <g transform={transform}>
         <MoveNode {...size} onTransform={this.onTransform} />
-        <Node {...size} />
+        <Node {...position} {...size} />
       </g>
     );
   }
