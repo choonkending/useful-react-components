@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Motion, spring, presets } from 'react-motion';
 import { Node } from './Node';
 import AddButton from '../AddButton';
 import { toRadians } from '../../utils/transformFn';
@@ -29,12 +30,18 @@ const provideControls = ComposedComponent => {
 
     renderControls() {
       const styles = this.state.isOpen ? this.renderFinalControlsStyles() : this.renderInitialControlsStyles();
-      return styles.map(({ left: x, top: y, r}, i) => <Node key={i} x={x} y={y} r={r} />);
+      return styles.map((style, i) => {
+        return (
+          <Motion style={style} key={i}>
+            { ({left, top, r}) => <Node x={left} y={top} r={r} /> }
+          </Motion>
+        );
+      });
     }
 
     renderInitialControlsStyles() {
       const { controls, controlRadius, x, y } = this.props;
-      return controls.map(control => ({ left: x, top: y, radius: controlRadius }));
+      return controls.map(control => ({ left: spring(x, presets.wobbly), top: spring(y, presets.wobbly), radius: controlRadius }));
     }
 
     renderFinalControlsStyles() {
@@ -48,8 +55,8 @@ const provideControls = ComposedComponent => {
         const dx = Math.cos(degree) * FLY_OUT_RADIUS;
         const dy = Math.sin(degree) * FLY_OUT_RADIUS;
         return {
-          left: x + dx,
-          top: y - dy,
+          left: spring(x + dx, presets.wobbly),
+          top: spring(y - dy, presets.wobbly),
           r: controlRadius
         };
       });
