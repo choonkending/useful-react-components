@@ -12,3 +12,7 @@ svg {
   }
 }
 
+.controls-button {
+  cursor: pointer;
+}
+

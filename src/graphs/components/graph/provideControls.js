@@ -1,25 +1,78 @@
 import React, { PropTypes, Component } from 'react';
 import { Node } from './Node';
 import AddButton from '../AddButton';
+import { toRadians } from '../../utils/transformFn';
+
+const SEPARATION_ANGLE = 40;
+const FLY_OUT_RADIUS = 120;
 
 const provideControls = ComposedComponent => {
   class ProvideControls extends Component {
+    constructor(props) {
+      super(props);
+      this.renderInitialControlsStyles = this.renderInitialControlsStyles.bind(this);
+      this.renderFinalControlsStyles = this.renderFinalControlsStyles.bind(this);
+      this.renderControls = this.renderControls.bind(this);
+      this.toggleClick = this.toggleClick.bind(this);
+      this.state = { isOpen : false };
+    }
+
     render() {
-      const { transform, x, y, ...restProps } = this.props;
+      const { transform, x, y, controls, ...restProps } = this.props;
       return (
         <g transform={transform}>
-          <Node x={x-100} y={y-100} r="10" />
-          <ComposedComponent x={x} y={y} {...restProps} />
+          { this.renderControls() }
+          <ComposedComponent onClick={this.toggleClick} className="controls-button" x={x} y={y} {...restProps} />
         </g>
       );
+    }
+
+    renderControls() {
+      const styles = this.state.isOpen ? this.renderFinalControlsStyles() : this.renderInitialControlsStyles();
+      return styles.map(({ left: x, top: y, r}, i) => <Node key={i} x={x} y={y} r={r} />);
+    }
+
+    renderInitialControlsStyles() {
+      const { controls, controlRadius, x, y } = this.props;
+      return controls.map(control => ({ left: x, top: y, radius: controlRadius }));
+    }
+
+    renderFinalControlsStyles() {
+      const { controls, controlRadius, x, y } = this.props;
+      const numberOfControls = controls.length;
+      const fanAngle = (numberOfControls - 1) * SEPARATION_ANGLE;
+      const baseAngle = (180 - fanAngle) / 2;
+      return controls.map((control, i) => {
+        const angle = baseAngle + i * SEPARATION_ANGLE;
+        const degree = toRadians(angle);
+        const dx = Math.cos(degree) * FLY_OUT_RADIUS;
+        const dy = Math.sin(degree) * FLY_OUT_RADIUS;
+        return {
+          left: x + dx,
+          top: y - dy,
+          r: controlRadius
+        };
+      });
+    }
+
+    toggleClick() {
+      this.setState({ isOpen: !this.state.isOpen });
     }
   }
 
   ProvideControls.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
+    controls: PropTypes.array.isRequired,
+    controlRadius: PropTypes.number.isRequired,
     transform: PropTypes.string
   };
+
+  ProvideControls.defaultProps = {
+    controls: [1, 2, 3, 4, 5],
+    controlRadius: 10
+  };
+
   return ProvideControls;
 };
 
