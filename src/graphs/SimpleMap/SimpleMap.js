@@ -23,7 +23,7 @@ class SimpleMap extends Component {
       nodes: [
         ...nodes,
         {
-          cx: 100 * Math.cos(radians),
+          cx: 25 + 100 * Math.cos(radians),
           cy: 100 * Math.sin(radians),
           r: RADIUS,
           bgColor: "#000"
