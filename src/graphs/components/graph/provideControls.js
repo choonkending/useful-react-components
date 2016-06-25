@@ -15,6 +15,7 @@ const provideControls = ComposedComponent => {
       this.renderFinalControlsStyles = this.renderFinalControlsStyles.bind(this);
       this.renderControls = this.renderControls.bind(this);
       this.toggleClick = this.toggleClick.bind(this);
+      this.onAddNode = this.onAddNode.bind(this);
       this.state = { isOpen : false };
     }
 
@@ -29,11 +30,12 @@ const provideControls = ComposedComponent => {
     }
 
     renderControls() {
+      const { onAddNode } = this.props;
       const styles = this.state.isOpen ? this.renderFinalControlsStyles() : this.renderInitialControlsStyles();
       return styles.map((style, i) => {
         return (
           <Motion style={style} key={i}>
-            { ({left, top, r}) => <Node x={left} y={top} r={r} /> }
+          { props => <Node onClick={this.onAddNode(props)} {...props} /> }
           </Motion>
         );
       });
@@ -41,7 +43,7 @@ const provideControls = ComposedComponent => {
 
     renderInitialControlsStyles() {
       const { controls, controlRadius, x, y } = this.props;
-      return controls.map(control => ({ left: spring(x, presets.wobbly), top: spring(y, presets.wobbly), radius: controlRadius }));
+      return controls.map(control => ({ x: spring(x, presets.wobbly), y: spring(y, presets.wobbly), r: controlRadius }));
     }
 
     renderFinalControlsStyles() {
@@ -55,8 +57,8 @@ const provideControls = ComposedComponent => {
         const dx = Math.cos(degree) * FLY_OUT_RADIUS;
         const dy = Math.sin(degree) * FLY_OUT_RADIUS;
         return {
-          left: spring(x + dx, presets.wobbly),
-          top: spring(y - dy, presets.wobbly),
+          x: spring(x + dx, presets.wobbly), //left
+          y: spring(y - dy, presets.wobbly), // top
           r: controlRadius
         };
       });
@@ -65,6 +67,14 @@ const provideControls = ComposedComponent => {
     toggleClick() {
       this.setState({ isOpen: !this.state.isOpen });
     }
+
+    onAddNode(node) {
+      const { transform } = this.props;
+      // We are returning a function so we won't need to implement onClick
+      // specifically to return node information in Node
+      return fn => this.props.onAddNode({...node, transform, r: 25});
+    }
+
   }
 
   ProvideControls.propTypes = {
@@ -72,6 +82,7 @@ const provideControls = ComposedComponent => {
     y: PropTypes.number.isRequired,
     controls: PropTypes.array.isRequired,
     controlRadius: PropTypes.number.isRequired,
+    onAddNode: PropTypes.func,
     transform: PropTypes.string
   };
 
