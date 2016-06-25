@@ -69,9 +69,10 @@ const provideControls = ComposedComponent => {
     }
 
     onAddNode(node) {
+      const { transform } = this.props;
       // We are returning a function so we won't need to implement onClick
       // specifically to return node information in Node
-      return fn => this.props.onAddNode({...node, r: 25});
+      return fn => this.props.onAddNode({...node, transform, r: 25});
     }
 
   }
