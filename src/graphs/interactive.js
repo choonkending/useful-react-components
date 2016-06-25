@@ -1,15 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { getCoordinates, addEvent, removeEvent } from './utils/eventUtils';
+import { convertMatrixToString, convertStringToMatrix } from './utils/transformFn';
 
 const getValuesFromObj = obj => Object.keys(obj).map(k => obj[k]);
-const createTransform = matrix => `matrix(${matrix.join(' ')})`;
 
 const interactive = ComposedComponent => {
   class Interactive extends Component {
     constructor(props) {
       super(props);
+      const { transform } = props;
+      const matrix = transform ? convertStringToMatrix(transform): { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0};
+      console.log(matrix);
       this.state = {
-        matrix: { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 },
+        matrix,
         dragging: false,
         x: 0,
         y: 0
@@ -31,7 +34,9 @@ const interactive = ComposedComponent => {
 
     render() {
       const { matrix } = this.state;
-      const transform = createTransform(getValuesFromObj(matrix));
+      const transform = convertMatrixToString(getValuesFromObj(matrix));
+      console.log(transform);
+      const { transform: omittedTransform, ...restProps } = this.props;
       return (
         <ComposedComponent
         onMouseDown={this.onDragStart}
@@ -40,7 +45,7 @@ const interactive = ComposedComponent => {
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}
         transform={transform}
-        {...this.props} />
+        {...restProps} />
       );
     }
 
@@ -99,7 +104,7 @@ const interactive = ComposedComponent => {
           f: f + dy
         }
       });
-      const transform = createTransform(getValuesFromObj(this.state.matrix));
+      const transform = convertMatrixToString(getValuesFromObj(this.state.matrix));
       onTransform && onTransform(transform);
     }
 
@@ -116,7 +121,7 @@ const interactive = ComposedComponent => {
           f: f * scale + (1 - scale) * height / 2
         }
       });
-      const transform = createTransform(getValuesFromObj(this.state.matrix));
+      const transform = convertMatrixToString(getValuesFromObj(this.state.matrix));
       onTransform && onTransform(transform);
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddButton from '../components/AddButton';
-import { Graph, ViewModel as GraphViewModel } from '../components/graph';
+import { Graph } from '../components/graph';
 import { translate } from '../utils/transformFn';
 import { interactive } from '../interactive';
 
@@ -58,14 +58,14 @@ class FinalMap extends Component {
     this.setState({
       graphs: [
         ...graphs,
-        new GraphViewModel({ position, size: { width, height}})
+        { id: graphs.length, position, size: { width, height }}
       ],
     });
   }
 
   renderGraphs() {
     const { width, height } = this.props;
-    return this.state.graphs.map((g, i) => <Graph key={i} {...g.getGraph()} />);
+    return this.state.graphs.map((g, i) => <Graph key={i} {...g} />);
   }
 }
 
