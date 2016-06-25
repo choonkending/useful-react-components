@@ -29,10 +29,7 @@ class Graph extends Component {
 
   renderNodes() {
     const { nodes, onAddNode, size } = this.props;
-    return nodes.map((node, i) => {
-      console.log(node);
-      return <Controls key={i} onAddNode={onAddNode} {...node} {...size} />
-    });
+    return nodes.map((node, i) => <Controls key={i} onAddNode={onAddNode} {...node} {...size} />);
   }
 
   onTransform(transform) {
