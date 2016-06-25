@@ -4,13 +4,18 @@ import { convertMatrixToString, convertStringToMatrix } from './utils/transformF
 
 const getValuesFromObj = obj => Object.keys(obj).map(k => obj[k]);
 
-const interactive = ComposedComponent => {
+// By default we wish to omit any transform functions from parent to the
+// ComposedComponent
+// We receive those initial values on creation
+const defaultAdapter = ({transform, ...x}) => x;
+
+const interactive = (ComposedComponent, adapter = defaultAdapter) => {
   class Interactive extends Component {
     constructor(props) {
       super(props);
       const { transform } = props;
+      // Initial with transform passed down if exist
       const matrix = transform ? convertStringToMatrix(transform): { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0};
-      console.log(matrix);
       this.state = {
         matrix,
         dragging: false,
@@ -35,8 +40,7 @@ const interactive = ComposedComponent => {
     render() {
       const { matrix } = this.state;
       const transform = convertMatrixToString(getValuesFromObj(matrix));
-      console.log(transform);
-      const { transform: omittedTransform, ...restProps } = this.props;
+      const props = defaultAdapter(this.props);
       return (
         <ComposedComponent
         onMouseDown={this.onDragStart}
@@ -45,7 +49,7 @@ const interactive = ComposedComponent => {
         onTouchEnd={this.onDragEnd}
         onWheel={this.onWheel}
         transform={transform}
-        {...restProps} />
+        {...props} />
       );
     }
 
