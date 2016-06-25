@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import statefulGraph from './statefulGraph';
-import MoveNode from './MoveNode';
-import Controls from './Node';
+import ControlNode, { MoverNode } from './Node';
 import { translate } from '../../utils/transformFn';
 import { CENTER } from './contants';
 import { centerPosition } from '../../utils/position';
@@ -21,15 +20,15 @@ class Graph extends Component {
     return (
       <g transform={transform}>
         { this.renderNodes() }
-        <MoveNode {...size} onTransform={this.onTransform} />
-        <Controls onAddNode={onAddNode} {...position} {...size} />
+        <MoverNode {...size} onTransform={this.onTransform} />
+        <ControlNode onAddNode={onAddNode} {...position} {...size} />
       </g>
     );
   }
 
   renderNodes() {
     const { nodes, onAddNode, size } = this.props;
-    return nodes.map((node, i) => <Controls key={i} onAddNode={onAddNode} {...node} {...size} />);
+    return nodes.map((node, i) => <ControlNode key={i} onAddNode={onAddNode} {...node} {...size} />);
   }
 
   onTransform(transform) {
