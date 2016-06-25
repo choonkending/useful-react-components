@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import statefulGraph from './statefulGraph';
 import MoveNode from './MoveNode';
-import Node from './Node';
+import Controls from './Node';
 import { translate } from '../../utils/transformFn';
 import { CENTER } from './contants';
 import { centerPosition } from '../../utils/position';
 
-export default class Graph extends Component {
+class Graph extends Component {
   constructor(props) {
     super(props);
     this.renderNodes = this.renderNodes.bind(this);
@@ -15,22 +16,32 @@ export default class Graph extends Component {
 
   render() {
     const { transform } = this.state;
-    const { size } = this.props;
+    const { size, onAddNode } = this.props;
     const position = centerPosition(size);
     return (
       <g transform={transform}>
+        { this.renderNodes() }
         <MoveNode {...size} onTransform={this.onTransform} />
-        <Node {...position} {...size} />
+        <Controls onAddNode={onAddNode} {...position} {...size} />
       </g>
     );
   }
 
   renderNodes() {
-    return this.props.nodes.map((node, i) => <Node key={i} {...node} />);
+    const { nodes, onAddNode, size } = this.props;
+    return nodes.map((node, i) => <Controls key={i} onAddNode={onAddNode} {...node} {...size} />);
   }
 
   onTransform(transform) {
     this.setState({ transform });
   }
+
 }
 
+Graph.propTypes = {
+  nodes: PropTypes.array.isRequired,
+  edges: PropTypes.array
+};
+
+export { Graph };
+export default statefulGraph(Graph);
