@@ -4,3 +4,4 @@ export { default as WhiteSheep } from './components/WhiteSheep';
 export { default as WhiteSheepWithBlurFilter } from './components/WhiteSheepWithBlurFilter';
 export { default as WhiteSheepWithTornFilter } from './components/WhiteSheepWithTornFilter';
 
+export { default as DraggableCircle } from './components/DraggableCircle.js';

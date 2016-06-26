@@ -6,7 +6,9 @@ import Button from './Button';
 import Root from './Root';
 
 /* Remove this SVG Demo after preso */
-import { Circle, WorkingCircle, WhiteSheep, WhiteSheepWithBlurFilter, WhiteSheepWithTornFilter } from '../graphs/SVGDemo';
+import { Circle, WorkingCircle, WhiteSheep,
+  WhiteSheepWithBlurFilter, WhiteSheepWithTornFilter,
+  DraggableCircle } from '../graphs/SVGDemo';
 /* Remove this SVG Demo after preso */
 
 const App = ()  => (
@@ -26,6 +28,7 @@ const App = ()  => (
       <Route path="svg-3" component={WhiteSheep} />
       <Route path="svg-4" component={WhiteSheepWithBlurFilter} />
       <Route path="svg-5" component={WhiteSheepWithTornFilter} />
+      <Route path="svg-6" component={DraggableCircle} />
 /* Remove this SVG Demo after preso */
     </Route>
   </Router>
