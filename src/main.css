@@ -37,5 +37,8 @@ body,
   a {
     text-decoration: none;
   }
+  &--demo {
+    display: none;
+  }
 }
 

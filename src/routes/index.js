@@ -23,12 +23,12 @@ const App = ()  => (
       </Route>
       <Route path="final" component={Final} />
 /* Remove this SVG Demo after preso */
-      <Route path="svg-1" component={Circle} />
-      <Route path="svg-2" component={WorkingCircle} />
-      <Route path="svg-3" component={WhiteSheep} />
-      <Route path="svg-4" component={WhiteSheepWithBlurFilter} />
-      <Route path="svg-5" component={WhiteSheepWithTornFilter} />
-      <Route path="svg-6" component={DraggableCircle} />
+      <Route path="demo-1" component={Circle} />
+      <Route path="demo-2" component={WorkingCircle} />
+      <Route path="demo-3" component={WhiteSheep} />
+      <Route path="demo-4" component={WhiteSheepWithBlurFilter} />
+      <Route path="demo-5" component={WhiteSheepWithTornFilter} />
+      <Route path="demo-6" component={DraggableCircle} />
 /* Remove this SVG Demo after preso */
     </Route>
   </Router>
