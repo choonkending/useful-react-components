@@ -8,7 +8,7 @@ import Root from './Root';
 /* Remove this SVG Demo after preso */
 import { Circle, WorkingCircle, WhiteSheep,
   WhiteSheepWithBlurFilter, WhiteSheepWithTornFilter,
-  DraggableCircle, CSSAnimatedCircle, styles } from '../graphs/SVGDemo';
+  DraggableCircle, CSSAnimatedCircle, ProvideControls, ProvideUnanimatedControls, styles } from '../graphs/SVGDemo';
 /* Remove this SVG Demo after preso */
 
 const App = ()  => (
@@ -30,6 +30,8 @@ const App = ()  => (
       <Route path="demo-5" component={WhiteSheepWithTornFilter} />
       <Route path="demo-6" component={DraggableCircle} />
       <Route path="demo-7" component={CSSAnimatedCircle} />
+      <Route path="demo-8" component={ProvideUnanimatedControls} />
+      <Route path="demo-9" component={ProvideControls} />
 /* Remove this SVG Demo after preso */
     </Route>
   </Router>
