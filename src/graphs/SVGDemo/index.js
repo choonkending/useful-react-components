@@ -8,5 +8,6 @@ export { default as DraggableCircle } from './components/DraggableCircle';
 export { default as CSSAnimatedCircle } from './components/CSSAnimatedCircle';
 export { default as ProvideControls } from './components/ProvideControls';
 export { default as ProvideUnanimatedControls } from './components/ProvideUnanimatedControls';
+export { default as Final } from './components/Final';
 export { default as styles } from './styles.css';
 
