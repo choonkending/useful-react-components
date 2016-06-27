@@ -1,0 +1,8 @@
+.animate {
+  transform-origin: 50% 50%;
+  transform: scale(1);
+  transition: transform 0.25s ease-in;
+  &:hover {
+    transform: scale(1.5);
+  }
+}

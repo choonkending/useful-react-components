@@ -5,3 +5,6 @@ export { default as WhiteSheepWithBlurFilter } from './components/WhiteSheepWith
 export { default as WhiteSheepWithTornFilter } from './components/WhiteSheepWithTornFilter';
 
 export { default as DraggableCircle } from './components/DraggableCircle.js';
+export { default as CSSAnimatedCircle } from './components/CSSAnimatedCircle.js';
+export { default as styles } from './styles.css';
+
