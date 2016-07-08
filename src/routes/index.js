@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { Simple, Zoom, Arrow, Final } from './graphs';
+import Mapi from './Mapi';
 import Button from './Button';
 import Root from './Root';
 
@@ -35,6 +36,7 @@ const App = ()  => (
       <Route path="demo-8" component={ProvideUnanimatedControls} />
       <Route path="demo-9" component={ProvideControls} />
       <Route path="demo-10" component={FinalDemo} />
+      <Route path="mapi" component={Mapi} />
 /* Remove this SVG Demo after preso */
     </Route>
   </Router>
