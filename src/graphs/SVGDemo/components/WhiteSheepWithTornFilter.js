@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import WhiteSheep from './WhiteSheep';
 import wrapWithSVG from './wrapWithSVG';
-import applyFilter, { TornFilter } from './applyFilter';
+import applyFilter, { TornFilter } from '../../applyFilter';
 
 
 const WhiteSheepWithFilter = ({transform, filter, ...props}) => (

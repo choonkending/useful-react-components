@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddButton from '../../components/AddButton';
-import Graph from './Graph';
+import Graph from '../../components/graph/Graph';
 import provideDimensions from '../../provideDimensions';
 import { translate } from '../../utils/transformFn';
 import { interactive } from '../../interactive';
